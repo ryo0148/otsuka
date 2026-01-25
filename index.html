@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4編4章 遷移元素とその化合物</title>
+    <style>
+        :root {
+            --main-blue: #4a86e8;
+            --sub-blue: #eef4ff;
+            --accent-red: #e74c3c;
+            --border-color: #ccc;
+        }
+        body {
+            font-family: "Hiragino Sans", "Meiryo", sans-serif;
+            line-height: 1.8;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        h1 {
+            display: flex;
+            align-items: center;
+            background: var(--main-blue);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 1.2em;
+        }
+        h1::before {
+            content: "1 節";
+            background: white;
+            color: var(--main-blue);
+            padding: 0 10px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        .section-2 h1::before { content: "2 節"; }
+
+        .content-box {
+            border: 1px solid #ddd;
+            padding: 25px;
+            margin-bottom: 35px;
+            border-top: 5px solid var(--main-blue);
+        }
+
+        h2 {
+            font-size: 1.1em;
+            color: var(--main-blue);
+            border-bottom: 2px solid var(--main-blue);
+            margin-top: 30px;
+        }
+
+        /* 穴埋め設定 */
+        .blank {
+            display: inline-block;
+            min-width: 50px;
+            padding: 0 5px;
+            border-bottom: 2px solid var(--accent-red);
+            cursor: pointer;
+            color: transparent;
+            background-color: #fffafa;
+            transition: 0.2s;
+            font-weight: bold;
+            text-align: center;
+        }
+        .blank.show {
+            color: var(--accent-red);
+            background-color: transparent;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* 錯イオン表 */
+        .complex-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85em;
+        }
+        .complex-table th, .complex-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: center;
+        }
+        .complex-table th { background: var(--sub-blue); }
+
+        /* 反応パネル */
+        .reaction-panel {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .btn {
+            background: var(--main-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+<div class="section-1">
+    <h1>遷移元素の特徴</h1>
+    <div class="content-box">
+        <p>遷移元素は、単体は密度が大きく融点が<span class="blank">高い</span>ものが多い。1つの元素が複数の<span class="blank">酸化数</span>をもつものが多く、イオンや化合物には<span class="blank">有色</span>のものが多い。</p>
+        
+        <h2>錯イオン</h2>
+        <p>中心となる金属イオンに、非共有電子対をもつ分子や陰イオンが<span class="blank">配位結合</span>してできたイオンを<span class="blank">錯イオン</span>という。</p>
+        
+        <table class="complex-table">
+            <tr>
+                <th>化学式</th>
+                <th>名称</th>
+                <th>形</th>
+                <th>配位数</th>
+                <th>色(水溶液)</th>
+            </tr>
+            <tr>
+                <td>[Ag(NH₃)₂]⁺</td>
+                <td><span class="blank">ジアンミン銀(I)イオン</span></td>
+                <td><span class="blank">直線形</span></td>
+                <td><span class="blank">2</span></td>
+                <td><span class="blank">無</span></td>
+            </tr>
+            <tr>
+                <td>[Cu(NH₃)₄]²⁺</td>
+                <td><span class="blank">テトラアンミン銅(II)イオン</span></td>
+                <td><span class="blank">正方形</span></td>
+                <td><span class="blank">4</span></td>
+                <td><span class="blank">深青</span></td>
+            </tr>
+            <tr>
+                <td>[Zn(NH₃)₄]²⁺</td>
+                <td><span class="blank">テトラアンミン亜鉛(II)イオン</span></td>
+                <td><span class="blank">正四面体形</span></td>
+                <td><span class="blank">4</span></td>
+                <td><span class="blank">無</span></td>
+            </tr>
+            <tr>
+                <td>[Fe(CN)₆]⁴⁻</td>
+                <td><span class="blank">ヘキサシアニド鉄(II)酸イオン</span></td>
+                <td><span class="blank">正八面体形</span></td>
+                <td><span class="blank">6</span></td>
+                <td><span class="blank">淡黄</span></td>
+            </tr>
+        </table>
+            </div>
+</div>
+
+<div class="section-2">
+    <h1>遷移元素とその化合物</h1>
+    <div class="content-box">
+        <h2>鉄とその化合物</h2>
+        <p>単体は、濃硝酸には<span class="blank">不動態</span>となるため溶解しない。鉄・クロム・ニッケルの合金を<span class="blank">ステンレス鋼</span>という。</p>
+        
+        <div class="reaction-panel">
+            <h3>鉄イオンの反応</h3>
+            <p>・Fe²⁺（<span class="blank">淡緑</span>色）にNaOHを加えると、<span class="blank">緑白色</span>沈殿のFe(OH)₂が生じる。</p>
+            <p>・Fe³⁺（<span class="blank">黄褐</span>色）にNaOHを加えると、<span class="blank">赤褐色</span>沈殿のFe(OH)₃（またはFeO(OH)）が生じる。</p>
+            <p>・Fe³⁺にKSCN水溶液を加えると、<span class="blank">血赤色</span>溶液となる。</p>
+            <p>・Fe²⁺にK₃[Fe(CN)₆]を加えると、<span class="blank">濃青色</span>沈殿（ターンブルブルー）が生じる。</p>
+        </div>
+        
+        <h2>銅・銀・亜鉛</h2>
+        <p><b>銅 Cu</b>：湿った空気中では徐々に緑色のさび（<span class="blank">緑青</span>）を生じる。</p>
+        <p><b>銀 Ag</b>：電気伝導性、熱伝導性は金属中で<span class="blank">最大</span>である。塩酸や希硫酸とは反応しないが、<span class="blank">硝酸</span>や熱濃硫酸には溶ける。</p>
+        <p><b>亜鉛 Zn</b>：<span class="blank">両性金属</span>であり、酸や強塩基に溶けて水素を発生する。<span class="blank">黄銅</span>（真鍮）は亜鉛と銅の合金である。</p>
+
+        <div class="reaction-panel">
+            <h3>金属イオンとH₂Sの反応（沈殿の色）</h3>
+            <p>・CuS：<span class="blank">黒</span>色沈殿</p>
+            <p>・Ag₂S：<span class="blank">黒</span>色沈殿</p>
+            <p>・ZnS：<span class="blank">白</span>色沈殿（<span class="blank">塩基性</span>または中性で沈殿）</p>
+        </div>
+            </div>
+</div>
+
+<div class="footer">
+    <button class="btn" onclick="toggleAll()">解答をすべて表示 / 非表示</button>
+</div>
+
+<script>
+    function toggleAll() {
+        const blanks = document.querySelectorAll('.blank');
+        const anyHidden = Array.from(blanks).some(b => !b.classList.contains('show'));
+        blanks.forEach(b => anyHidden ? b.classList.add('show') : b.classList.remove('show'));
+    }
+    document.querySelectorAll('.blank').forEach(el => {
+        el.addEventListener('click', () => el.classList.toggle('show'));
+    });
+</script>
+
+</body>
+</html>
