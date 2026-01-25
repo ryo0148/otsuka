@@ -3,65 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4編4章 遷移元素とその化合物</title>
+    <title>無機化学 暗記マスター（全範囲）</title>
     <style>
         :root {
             --main-blue: #4a86e8;
-            --sub-blue: #eef4ff;
+            --sub-blue: #f0f5ff;
             --accent-red: #e74c3c;
-            --border-color: #ccc;
+            --border-color: #ccd5e0;
         }
         body {
             font-family: "Hiragino Sans", "Meiryo", sans-serif;
             line-height: 1.8;
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
+            padding-bottom: 100px;
         }
+        /* 教科書風見出し */
         h1 {
-            display: flex;
-            align-items: center;
             background: var(--main-blue);
             color: white;
             padding: 8px 15px;
             border-radius: 4px;
             font-size: 1.2em;
+            margin-top: 40px;
         }
-        h1::before {
-            content: "1 節";
-            background: white;
-            color: var(--main-blue);
-            padding: 0 10px;
-            margin-right: 15px;
-            font-weight: bold;
-        }
-        .section-2 h1::before { content: "2 節"; }
-
-        .content-box {
-            border: 1px solid #ddd;
-            padding: 25px;
-            margin-bottom: 35px;
-            border-top: 5px solid var(--main-blue);
-        }
-
         h2 {
-            font-size: 1.1em;
             color: var(--main-blue);
             border-bottom: 2px solid var(--main-blue);
-            margin-top: 30px;
+            font-size: 1.1em;
+            margin-top: 25px;
         }
-
-        /* 穴埋め設定 */
+        .content-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-top: 4px solid var(--main-blue);
+        }
+        /* 穴埋めスタイル */
         .blank {
             display: inline-block;
-            min-width: 50px;
+            min-width: 45px;
             padding: 0 5px;
+            margin: 0 2px;
             border-bottom: 2px solid var(--accent-red);
             cursor: pointer;
             color: transparent;
-            background-color: #fffafa;
-            transition: 0.2s;
+            background-color: #fff5f5;
+            transition: all 0.2s;
             font-weight: bold;
             text-align: center;
         }
@@ -70,122 +60,82 @@
             background-color: transparent;
             border-bottom: 2px solid #ddd;
         }
-
-        /* 錯イオン表 */
-        .complex-table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 0.85em;
+            margin: 15px 0;
+            font-size: 0.9em;
         }
-        .complex-table th, .complex-table td {
+        th, td {
             border: 1px solid var(--border-color);
             padding: 10px;
             text-align: center;
         }
-        .complex-table th { background: var(--sub-blue); }
-
-        /* 反応パネル */
-        .reaction-panel {
-            background: #f9f9f9;
-            border: 1px solid #eee;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-        }
-
+        th { background: var(--sub-blue); }
+        .formula { font-family: "Times New Roman", serif; font-weight: bold; }
+        .img-box { text-align: center; margin: 15px 0; padding: 10px; border: 1px dashed #ccc; background: #fafafa; font-size: 0.8em; }
+        
         .footer {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         }
         .btn {
             background: var(--main-blue);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 30px;
             border-radius: 25px;
             cursor: pointer;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<div class="section-1">
-    <h1>遷移元素の特徴</h1>
-    <div class="content-box">
-        <p>遷移元素は、単体は密度が大きく融点が<span class="blank">高い</span>ものが多い。1つの元素が複数の<span class="blank">酸化数</span>をもつものが多く、イオンや化合物には<span class="blank">有色</span>のものが多い。</p>
-        
-        <h2>錯イオン</h2>
-        <p>中心となる金属イオンに、非共有電子対をもつ分子や陰イオンが<span class="blank">配位結合</span>してできたイオンを<span class="blank">錯イオン</span>という。</p>
-        
-        <table class="complex-table">
-            <tr>
-                <th>化学式</th>
-                <th>名称</th>
-                <th>形</th>
-                <th>配位数</th>
-                <th>色(水溶液)</th>
-            </tr>
-            <tr>
-                <td>[Ag(NH₃)₂]⁺</td>
-                <td><span class="blank">ジアンミン銀(I)イオン</span></td>
-                <td><span class="blank">直線形</span></td>
-                <td><span class="blank">2</span></td>
-                <td><span class="blank">無</span></td>
-            </tr>
-            <tr>
-                <td>[Cu(NH₃)₄]²⁺</td>
-                <td><span class="blank">テトラアンミン銅(III)イオン</span></td>
-                <td><span class="blank">正方形</span></td>
-                <td><span class="blank">4</span></td>
-                <td><span class="blank">深青</span></td>
-            </tr>
-            <tr>
-                <td>[Zn(NH₃)₄]²⁺</td>
-                <td><span class="blank">テトラアンミン亜鉛(II)イオン</span></td>
-                <td><span class="blank">正四面体形</span></td>
-                <td><span class="blank">4</span></td>
-                <td><span class="blank">無</span></td>
-            </tr>
-            <tr>
-                <td>[Fe(CN)₆]⁴⁻</td>
-                <td><span class="blank">ヘキサシアニド鉄(II)酸イオン</span></td>
-                <td><span class="blank">正八面体形</span></td>
-                <td><span class="blank">6</span></td>
-                <td><span class="blank">淡黄</span></td>
-            </tr>
-        </table>
-            </div>
+<h1>非金属元素とその化合物</h1>
+<div class="content-box">
+    <h2>水素・貴ガス・ハロゲン</h2>
+    <p>水素は全気体中で最も<span class="blank">軽い</span>。貴ガス(18族)は価電子が<span class="blank">0</span>で安定している。ハロゲン(17族)の酸化力は <span class="blank">F₂</span> ＞ <span class="blank">Cl₂</span> ＞ <span class="blank">Br₂</span> ＞ <span class="blank">I₂</span>。フッ化水素のみが<span class="blank">弱酸</span>である。</p>
+    
+    <h2>酸素・硫黄・窒素</h2>
+    <p>オゾンは酸素の<span class="blank">同素体</span>。硫酸の工業的製法は<span class="blank">接触法</span>、硝酸は<span class="blank">オストワルト法</span>。アンモニアは<span class="blank">ハーバー・ボッシュ法</span>で作られ、<span class="blank">上方</span>置換で捕集する。</p>
 </div>
 
-<div class="section-2">
-    <h1>遷移元素とその化合物</h1>
-    <div class="content-box">
-        <h2>鉄とその化合物</h2>
-        <p>単体は、濃硝酸には<span class="blank">不動態</span>となるため溶解しない。鉄・クロム・ニッケルの合金を<span class="blank">ステンレス鋼</span>という。</p>
-        
-        <div class="reaction-panel">
-            <h3>鉄イオンの反応</h3>
-            <p>・Fe²⁺（<span class="blank">淡緑</span>色）にNaOHを加えると、<span class="blank">緑白色</span>沈殿のFe(OH)₂が生じる。</p>
-            <p>・Fe³⁺（<span class="blank">黄褐</span>色）にNaOHを加えると、<span class="blank">赤褐色</span>沈殿のFe(OH)₃（またはFeO(OH)）が生じる。</p>
-            <p>・Fe³⁺にKSCN水溶液を加えると、<span class="blank">血赤色</span>溶液となる。</p>
-            <p>・Fe²⁺にK₃[Fe(CN)₆]を加えると、<span class="blank">濃青色</span>沈殿（ターンブルブルー）が生じる。</p>
-        </div>
-        
-        <h2>銅・銀・亜鉛</h2>
-        <p><b>銅 Cu</b>：湿った空気中では徐々に緑色のさび（<span class="blank">緑青</span>）を生じる。</p>
-        <p><b>銀 Ag</b>：電気伝導性、熱伝導性は金属中で<span class="blank">最大</span>である。塩酸や希硫酸とは反応しないが、<span class="blank">硝酸</span>や熱濃硫酸には溶ける。</p>
-        <p><b>亜鉛 Zn</b>：<span class="blank">両性金属</span>であり、酸や強塩基に溶けて水素を発生する。<span class="blank">黄銅</span>（真鍮）は亜鉛と銅の合金である。</p>
+<h1>典型金属元素とその化合物</h1>
+<div class="content-box">
+    <h2>アルカリ金属・アルカリ土類金属</h2>
+    <p>1族は陽イオンになりやすく<span class="blank">石油</span>中に保存する。水酸化ナトリウムが水分を吸って溶けるのは<span class="blank">潮解</span>、炭酸ナトリウム十水和物が粉末になるのは<span class="blank">風解</span>。</p>
+    <div class="img-box">
 
-        <div class="reaction-panel">
-            <h3>金属イオンとH₂Sの反応（沈殿の色）</h3>
-            <p>・CuS：<span class="blank">黒</span>色沈殿</p>
-            <p>・Ag₂S：<span class="blank">黒</span>色沈殿</p>
-            <p>・ZnS：<span class="blank">白</span>色沈殿（<span class="blank">塩基性</span>または中性で沈殿）</p>
-        </div>
-            </div>
+[Image of Solvay process flowchart]
+ アンモニアソーダ法：主反応で<span class="blank">NaHCO₃</span>が沈殿。</div>
+    
+    <h2>アルミニウム・両性金属</h2>
+    <p>Alは<span class="blank">3</span>価の陽イオンになりやすく、濃硝酸で<span class="blank">不動態</span>となる。酸にも強塩基にも溶ける<span class="blank">両性金属</span>(Al, Zn, Sn, Pb)である。過剰なNaOHには溶けるが、<span class="blank">アンモニア</span>水には溶けない。</p>
+</div>
+
+<h1>遷移元素とその化合物</h1>
+<div class="content-box">
+    <h2>遷移元素の特徴と錯イオン</h2>
+    <p>遷移元素は複数の<span class="blank">酸化数</span>をもち、イオンに<span class="blank">色</span>があるものが多い。</p>
+    <table>
+        <tr><th>式</th><th>名称</th><th>形状</th><th>配位数</th></tr>
+        <tr><td>[Ag(NH₃)₂]⁺</td><td><span class="blank">ジアンミン銀(I)</span></td><td><span class="blank">直線</span>形</td><td>2</td></tr>
+        <tr><td>[Cu(NH₃)₄]²⁺</td><td><span class="blank">テトラアンミン銅(II)</span></td><td><span class="blank">正方形</span></td><td>4</td></tr>
+        <tr><td>[Zn(NH₃)₄]²⁺</td><td><span class="blank">テトラアンミン亜鉛(II)</span></td><td><span class="blank">正四面体</span>形</td><td>4</td></tr>
+        <tr><td>[Fe(CN)₆]³⁻</td><td><span class="blank">ヘキサシアニド鉄(III)酸</span></td><td><span class="blank">正八面体</span>形</td><td>6</td></tr>
+        <tr><td>[Al(OH)₄]⁻</td><td><span class="blank">テトラヒドロキシドアルミン酸</span></td><td><span class="blank">正四面体</span>形</td><td>4</td></tr>
+    </table>
+
+    <h2>鉄・銅・銀の反応</h2>
+    <div class="img-box"></div>
+    <p>Fe³⁺にKSCNで溶液は<span class="blank">血赤</span>色になる。銅は湿った空気中で緑色のさび（<span class="blank">緑青</span>）を生じる。銀は金属中で電気伝導性が<span class="blank">最大</span>。亜鉛と銅の合金は<span class="blank">黄銅</span>、スズめっき鋼板は<span class="blank">ブリキ</span>という。</p>
 </div>
 
 <div class="footer">
@@ -202,7 +152,5 @@
         el.addEventListener('click', () => el.classList.toggle('show'));
     });
 </script>
-
 </body>
-
 </html>
