@@ -3,48 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>無機化学 暗記マスター（全範囲）</title>
+    <title>典型金属・遷移元素 徹底暗記シート</title>
     <style>
         :root {
             --main-blue: #4a86e8;
-            --sub-blue: #f0f5ff;
+            --header-bg: #eef4ff;
             --accent-red: #e74c3c;
-            --border-color: #ccd5e0;
+            --table-border: #ccc;
         }
         body {
             font-family: "Hiragino Sans", "Meiryo", sans-serif;
             line-height: 1.8;
+            color: #333;
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #fff;
-            padding-bottom: 100px;
+            background-color: #f8f9fa;
         }
-        /* 教科書風見出し */
+        /* 章タイトル */
+        .chapter-title {
+            background-color: #5b9bd5;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-left: 10px solid #2e75b6;
+        }
+        /* 節見出し */
         h1 {
+            display: flex;
+            align-items: center;
             background: var(--main-blue);
             color: white;
-            padding: 8px 15px;
+            padding: 5px 15px;
             border-radius: 4px;
             font-size: 1.2em;
             margin-top: 40px;
         }
-        h2 {
+        h1::before {
+            content: attr(data-section);
+            background: white;
             color: var(--main-blue);
-            border-bottom: 2px solid var(--main-blue);
-            font-size: 1.1em;
-            margin-top: 25px;
+            padding: 0 10px;
+            margin-right: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
         }
         .content-box {
+            background: white;
             border: 1px solid #ddd;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
             border-top: 4px solid var(--main-blue);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        h2 {
+            font-size: 1.1em;
+            color: var(--main-blue);
+            border-bottom: 2px solid var(--main-blue);
+            margin-top: 25px;
+            padding-bottom: 3px;
         }
         /* 穴埋めスタイル */
         .blank {
             display: inline-block;
-            min-width: 45px;
+            min-width: 50px;
             padding: 0 5px;
             margin: 0 2px;
             border-bottom: 2px solid var(--accent-red);
@@ -60,6 +84,7 @@
             background-color: transparent;
             border-bottom: 2px solid #ddd;
         }
+        /* 表 */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -67,76 +92,136 @@
             font-size: 0.9em;
         }
         th, td {
-            border: 1px solid var(--border-color);
-            padding: 10px;
+            border: 1px solid var(--table-border);
+            padding: 8px;
             text-align: center;
         }
-        th { background: var(--sub-blue); }
+        th { background-color: var(--header-bg); }
         .formula { font-family: "Times New Roman", serif; font-weight: bold; }
-        .img-box { text-align: center; margin: 15px 0; padding: 10px; border: 1px dashed #ccc; background: #fafafa; font-size: 0.8em; }
-        
+        .img-ref { background: #f9f9f9; border: 1px dashed #bbb; padding: 10px; text-align: center; margin: 10px 0; font-size: 0.85em; }
+
+        /* フロー図等の簡易再現 */
+        .flow-container { border: 1px solid #eee; padding: 15px; background: #fafafa; margin: 10px 0; border-radius: 8px; }
+
         .footer {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.95);
+            background: white;
             padding: 15px;
             text-align: center;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
-        .btn {
-            background: var(--main-blue);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        .btn { background: var(--main-blue); color: white; border: none; padding: 10px 30px; border-radius: 20px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<h1>非金属元素とその化合物</h1>
-<div class="content-box">
-    <h2>水素・貴ガス・ハロゲン</h2>
-    <p>水素は全気体中で最も<span class="blank">軽い</span>。貴ガス(18族)は価電子が<span class="blank">0</span>で安定している。ハロゲン(17族)の酸化力は <span class="blank">F₂</span> ＞ <span class="blank">Cl₂</span> ＞ <span class="blank">Br₂</span> ＞ <span class="blank">I₂</span>。フッ化水素のみが<span class="blank">弱酸</span>である。</p>
-    
-    <h2>酸素・硫黄・窒素</h2>
-    <p>オゾンは酸素の<span class="blank">同素体</span>。硫酸の工業的製法は<span class="blank">接触法</span>、硝酸は<span class="blank">オストワルト法</span>。アンモニアは<span class="blank">ハーバー・ボッシュ法</span>で作られ、<span class="blank">上方</span>置換で捕集する。</p>
-</div>
+<div class="chapter-title">第3章 典型金属元素とその化合物</div>
 
-<h1>典型金属元素とその化合物</h1>
-<div class="content-box">
-    <h2>アルカリ金属・アルカリ土類金属</h2>
-    <p>1族は陽イオンになりやすく<span class="blank">石油</span>中に保存する。水酸化ナトリウムが水分を吸って溶けるのは<span class="blank">潮解</span>、炭酸ナトリウム十水和物が粉末になるのは<span class="blank">風解</span>。</p>
-    <div class="img-box">
+<section>
+    <h1 data-section="1 節">アルカリ金属とその化合物</h1>
+    <div class="content-box">
+        <h2>アルカリ金属</h2>
+        <ul>
+            <li>原子は<span class="blank">1価</span>の陽イオンになりやすい。</li>
+            <li>単体を得るには、化合物を<span class="blank">溶融塩電解</span>する。</li>
+            <li>単体や化合物は、特有の<span class="blank">炎色反応</span>を示す。</li>
+            <li>常温の水と反応して<span class="blank">水素</span>を発生し、水酸化物は<span class="blank">強い塩基性</span>を示す。</li>
+            <li>反応性が高いため、<span class="blank">石油</span>中に保存する。</li>
+        </ul>
 
-[Image of Solvay process flowchart]
- アンモニアソーダ法：主反応で<span class="blank">NaHCO₃</span>が沈殿。</div>
-    
-    <h2>アルミニウム・両性金属</h2>
-    <p>Alは<span class="blank">3</span>価の陽イオンになりやすく、濃硝酸で<span class="blank">不動態</span>となる。酸にも強塩基にも溶ける<span class="blank">両性金属</span>(Al, Zn, Sn, Pb)である。過剰なNaOHには溶けるが、<span class="blank">アンモニア</span>水には溶けない。</p>
-</div>
+        <h2>ナトリウムの化合物</h2>
+        <p><b>水酸化ナトリウム NaOH</b>：空気中の水分を吸収して溶ける（<span class="blank">潮解</span>）。</p>
+        <p><b>炭酸ナトリウム Na₂CO₃</b>：別名<span class="blank">ソーダ灰</span>。十水和物が水和水を失い粉末状になる現象を<span class="blank">風解</span>という。工業的には<span class="blank">アンモニアソーダ法（ソルベー法）</span>でつくられる。</p>
+        <div class="flow-container">
+            <b>ソルベー法の重要点：</b><br>
+            主反応で溶解度の小さい<span class="blank">NaHCO₃</span>が沈殿する。<br>
+            副生した<span class="blank">NH₄Cl</span>に<span class="blank">Ca(OH)₂</span>を反応させて、アンモニアを回収・再利用する。
+        </div>
+        <p><b>炭酸水素ナトリウム NaHCO₃</b>：<span class="blank">重曹</span>とも呼ばれ、水溶液は<span class="blank">弱塩基性</span>を示す。</p>
+    </div>
+</section>
 
-<h1>遷移元素とその化合物</h1>
-<div class="content-box">
-    <h2>遷移元素の特徴と錯イオン</h2>
-    <p>遷移元素は複数の<span class="blank">酸化数</span>をもち、イオンに<span class="blank">色</span>があるものが多い。</p>
-    <table>
-        <tr><th>式</th><th>名称</th><th>形状</th><th>配位数</th></tr>
-        <tr><td>[Ag(NH₃)₂]⁺</td><td><span class="blank">ジアンミン銀(I)</span></td><td><span class="blank">直線</span>形</td><td>2</td></tr>
-        <tr><td>[Cu(NH₃)₄]²⁺</td><td><span class="blank">テトラアンミン銅(II)</span></td><td><span class="blank">正方形</span></td><td>4</td></tr>
-        <tr><td>[Zn(NH₃)₄]²⁺</td><td><span class="blank">テトラアンミン亜鉛(II)</span></td><td><span class="blank">正四面体</span>形</td><td>4</td></tr>
-        <tr><td>[Fe(CN)₆]³⁻</td><td><span class="blank">ヘキサシアニド鉄(III)酸</span></td><td><span class="blank">正八面体</span>形</td><td>6</td></tr>
-        <tr><td>[Al(OH)₄]⁻</td><td><span class="blank">テトラヒドロキシドアルミン酸</span></td><td><span class="blank">正四面体</span>形</td><td>4</td></tr>
-    </table>
+<section>
+    <h1 data-section="2 節">アルカリ土類金属とその化合物</h1>
+    <div class="content-box">
+        <h2>アルカリ土類金属</h2>
+        <p>原子は<span class="blank">2価</span>の陽イオンになりやすい。Ca, Sr, Baは常温の水と反応して<span class="blank">水素</span>を発生する。</p>
+        
+        <h2>カルシウムの化合物</h2>
+        <table>
+            <tr><th>名称</th><th>化学式</th><th>特徴</th></tr>
+            <tr><td><span class="blank">酸化カルシウム</span></td><td class="formula">CaO</td><td><span class="blank">生石灰</span>。乾燥剤などに利用。</td></tr>
+            <tr><td><span class="blank">水酸化カルシウム</span></td><td class="formula">Ca(OH)₂</td><td><span class="blank">消石灰</span>。飽和水溶液は<span class="blank">石灰水</span>。</td></tr>
+            <tr><td><span class="blank">炭酸カルシウム</span></td><td class="formula">CaCO₃</td><td>石灰岩・大理石・貝殻の主成分。</td></tr>
+            <tr><td><span class="blank">硫酸カルシウム</span></td><td class="formula">CaSO₄</td><td>二水和物は<span class="blank">セッコウ</span>として存在。</td></tr>
+        </table>
+        
+        <div class="img-ref">
+                    </div>
+        <p>石灰水にCO₂を通すと<span class="blank">CaCO₃</span>の白濁が生じるが、さらに通すと水に溶けやすい<span class="blank">炭酸水素カルシウム</span>（Ca(HCO₃)₂）となる。</p>
+    </div>
+</section>
 
-    <h2>鉄・銅・銀の反応</h2>
-    <div class="img-box"></div>
-    <p>Fe³⁺にKSCNで溶液は<span class="blank">血赤</span>色になる。銅は湿った空気中で緑色のさび（<span class="blank">緑青</span>）を生じる。銀は金属中で電気伝導性が<span class="blank">最大</span>。亜鉛と銅の合金は<span class="blank">黄銅</span>、スズめっき鋼板は<span class="blank">ブリキ</span>という。</p>
-</div>
+<section>
+    <h1 data-section="3 節">1, 2 族以外の典型金属元素とその化合物</h1>
+    <div class="content-box">
+        <h2>アルミニウム</h2>
+        <ul>
+            <li><span class="blank">3</span>個の価電子をもち、酸化アルミニウムを<span class="blank">溶融塩電解</span>して製造する。</li>
+            <li>濃硝酸とは<span class="blank">不動態</span>をつくり溶けない。</li>
+            <li>酸にも強塩基にも反応して水素を出す<span class="blank">両性金属</span>である。</li>
+        </ul>
+        <div class="img-ref">
+            [Image of Al³⁺ reaction: Al³⁺ + 少量NaOH → <span class="blank">Al(OH)₃</span>(白色沈殿)<br>
+            + 過剰NaOH → <span class="blank">[Al(OH)₄]⁻</span>(無色溶液) / + 過剰NH₃ → <span class="blank">溶けない</span>]
+        </div>
+
+        <h2>スズ・鉛</h2>
+        <p><b>スズ</b>：単体は<span class="blank">両性金属</span>。スズめっき鋼板は<span class="blank">ブリキ</span>と呼ばれる。</p>
+        <p><b>鉛</b>：単体は<span class="blank">両性金属</span>。塩酸や希硫酸には表面に<span class="blank">不溶</span>性の塩をつくるため、ほとんど溶けない。</p>
+    </div>
+</section>
+
+<div class="chapter-title">第4章 遷移元素とその化合物</div>
+
+<section>
+    <h1 data-section="1 節">遷移元素の特徴</h1>
+    <div class="content-box">
+        <h2>錯イオン</h2>
+        <table>
+            <tr><th>化学式</th><th>名称</th><th>形</th><th>配位数</th><th>色</th></tr>
+            <tr><td class="formula">[Ag(NH₃)₂]⁺</td><td>ジアンミン銀(I)イオン</td><td><span class="blank">直線</span>形</td><td>2</td><td><span class="blank">無</span></td></tr>
+            <tr><td class="formula">[Cu(NH₃)₄]²⁺</td><td>テトラアンミン銅(II)イオン</td><td><span class="blank">正方形</span></td><td>4</td><td><span class="blank">深青</span></td></tr>
+            <tr><td class="formula">[Zn(NH₃)₄]²⁺</td><td>テトラアンミン亜鉛(II)イオン</td><td><span class="blank">正四面体</span>形</td><td>4</td><td><span class="blank">無</span></td></tr>
+            <tr><td class="formula">[Fe(CN)₆]⁴⁻</td><td>ヘキサシアニド鉄(II)酸イオン</td><td><span class="blank">正八面体</span>形</td><td>6</td><td><span class="blank">淡黄</span></td></tr>
+            <tr><td class="formula">[Fe(CN)₆]³⁻</td><td>ヘキサシアニド鉄(III)酸イオン</td><td><span class="blank">正八面体</span>形</td><td>6</td><td><span class="blank">黄</span></td></tr>
+        </table>
+    </div>
+</section>
+
+<section>
+    <h1 data-section="2 節">遷移元素とその化合物</h1>
+    <div class="content-box">
+        <h2>鉄とその化合物</h2>
+        <p>単体は濃硝酸には<span class="blank">不動態</span>となるため溶解しない。鉄・クロム・ニッケルの合金を<span class="blank">ステンレス鋼</span>という。</p>
+        <div class="img-ref">
+            <b>鉄イオンの反応：</b><br>
+            Fe²⁺ + NaOH → <span class="blank">緑白色</span>沈殿 Fe(OH)₂<br>
+            Fe³⁺ + NaOH → <span class="blank">赤褐色</span>沈殿 FeO(OH)<br>
+            Fe³⁺ + KSCN → <span class="blank">血赤</span>色溶液<br>
+            Fe²⁺ + K₃[Fe(CN)₆] → <span class="blank">濃青</span>色沈殿（ターンブルブルー）
+        </div>
+
+        <h2>銅・銀・亜鉛</h2>
+        <p><b>銅</b>：湿った空気中で緑色のさび（<span class="blank">緑青</span>）を生じる。水溶液中で<span class="blank">CuS</span>は<span class="blank">黒</span>色沈殿となる。</p>
+        <p><b>銀</b>：電気伝導性・熱伝導性が金属中で<span class="blank">最大</span>。水溶液中で<span class="blank">Ag₂S</span>は<span class="blank">黒</span>色沈殿となる。</p>
+        <p><b>亜鉛</b>：<span class="blank">両性金属</span>。合金である<span class="blank">黄銅</span>（真鍮）や亜鉛めっき鋼板である<span class="blank">トタン</span>に用いられる。<span class="blank">ZnS</span>は<span class="blank">白</span>色沈殿となる。</p>
+    </div>
+</section>
 
 <div class="footer">
     <button class="btn" onclick="toggleAll()">解答をすべて表示 / 非表示</button>
@@ -152,5 +237,6 @@
         el.addEventListener('click', () => el.classList.toggle('show'));
     });
 </script>
+
 </body>
 </html>
