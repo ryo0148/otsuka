@@ -200,6 +200,11 @@
       min-width: 0;
     }
 
+    .toggle-stack {
+      display: grid;
+      gap: 10px;
+    }
+
     .toggle-label {
       color: var(--muted);
       font-size: 13px;
@@ -601,12 +606,21 @@
             <span id="remaining">-00:00</span>
           </div>
         </div>
-        <div class="toggle-row">
-          <span class="toggle-label">Auto-scroll list</span>
-          <label class="switch" aria-label="Toggle auto-scroll list">
-            <input type="checkbox" id="autoScrollToggle" checked>
-            <span class="slider"></span>
-          </label>
+        <div class="toggle-stack">
+          <div class="toggle-row">
+            <span class="toggle-label">Auto-scroll list</span>
+            <label class="switch" aria-label="Toggle auto-scroll list">
+              <input type="checkbox" id="autoScrollToggle" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Infinite loop</span>
+            <label class="switch" aria-label="Toggle infinite loop">
+              <input type="checkbox" id="loopToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
         </div>
         <div class="sections">
           <p class="section-title">Jump By Section</p>
@@ -2153,11 +2167,13 @@
     const sentenceList = document.getElementById("sentenceList");
     const sectionRow = document.getElementById("sectionRow");
     const autoScrollToggle = document.getElementById("autoScrollToggle");
+    const loopToggle = document.getElementById("loopToggle");
 
     let activeIndex = -1;
     let activeWordIndex = -1;
     let rafId = null;
     let autoScrollEnabled = true;
+    let loopEnabled = false;
 
     function escapeHtml(text) {
       return text
@@ -2205,6 +2221,14 @@
         autoScrollEnabled = true;
       }
       autoScrollToggle.checked = autoScrollEnabled;
+
+      try {
+        const storedLoop = localStorage.getItem("new20290529NoHeadPlayerLoop");
+        loopEnabled = storedLoop === "true";
+      } catch {
+        loopEnabled = false;
+      }
+      loopToggle.checked = loopEnabled;
     }
 
     function savePreferences() {
@@ -2368,6 +2392,12 @@
       autoScrollEnabled = autoScrollToggle.checked;
       savePreferences();
     });
+    loopToggle.addEventListener("change", () => {
+      loopEnabled = loopToggle.checked;
+      try {
+        localStorage.setItem("new20290529NoHeadPlayerLoop", String(loopEnabled));
+      } catch {}
+    });
 
     prepareCueWords();
     renderSections();
@@ -2383,6 +2413,14 @@
 
     audio.addEventListener("pause", stopLoop);
     audio.addEventListener("ended", () => {
+      if (loopEnabled) {
+        audio.currentTime = 0;
+        syncHighlights(0);
+        syncWordHighlight(0);
+        updateProgress();
+        audio.play();
+        return;
+      }
       stopLoop();
       syncHighlights(cues.length - 1);
       updateProgress();
