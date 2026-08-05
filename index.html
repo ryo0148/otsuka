@@ -49,6 +49,7 @@
       padding: 28px;
       display: grid;
       gap: 18px;
+      min-width: 0;
     }
     .controls {
       padding: 22px;
@@ -97,6 +98,8 @@
       border: 1px solid rgba(194, 81, 22, 0.14);
       background: linear-gradient(135deg, rgba(255,255,255,0.99), rgba(255,255,255,0.9));
       min-height: 170px;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
     .text-box h2 {
       margin: 0 0 10px;
@@ -109,10 +112,18 @@
       font-size: clamp(23px, 2.4vw, 31px);
       line-height: 1.6;
       font-weight: 600;
+      min-width: 0;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .japanese-current {
       font-size: 19px;
       line-height: 1.75;
+      min-width: 0;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .word {
       padding: 0.04em 0.08em;
