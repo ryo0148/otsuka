@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memory Motor Poster Script Explained</title>
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --panel: rgba(255, 255, 255, 0.94);
+      --panel-strong: rgba(255, 255, 255, 0.98);
+      --text: #1f1a16;
+      --muted: #6f665d;
+      --line: rgba(83, 61, 38, 0.14);
+      --accent: #0a7668;
+      --accent-soft: rgba(10, 118, 104, 0.10);
+      --active: #c45b17;
+      --active-soft: rgba(196, 91, 23, 0.12);
+      --shadow: 0 20px 58px rgba(46, 30, 14, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Segoe UI", "Noto Sans JP", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(10, 118, 104, 0.10), transparent 26%),
+        radial-gradient(circle at top right, rgba(196, 91, 23, 0.08), transparent 24%),
+        linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%);
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 18px 40px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      min-width: 0;
+    }
+
+    .intro,
+    .side {
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 15px;
+      max-width: 72ch;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .summary,
+    .player-box {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.99), rgba(255,255,255,0.90));
+      line-height: 1.8;
+      font-size: 14px;
+      border: 1px solid rgba(10, 118, 104, 0.16);
+    }
+
+    .player-box {
+      border-color: rgba(196, 91, 23, 0.18);
+    }
+
+    .player-status {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .section-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .section-chip {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.78);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .cards {
+      margin-top: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--panel-strong);
+      box-shadow: var(--shadow);
+    }
+
+    .card.playing {
+      border-color: rgba(196, 91, 23, 0.42);
+      background: linear-gradient(135deg, rgba(196,91,23,0.08), rgba(255,255,255,0.98));
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card-index {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .audio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .audio-btn,
+    .stop-btn {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      min-height: 38px;
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 120ms ease;
+    }
+
+    .audio-btn {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(10, 118, 104, 0.16);
+    }
+
+    .audio-btn:hover {
+      background: rgba(10, 118, 104, 0.16);
+    }
+
+    .stop-btn {
+      background: var(--active-soft);
+      color: var(--active);
+      border-color: rgba(196, 91, 23, 0.16);
+    }
+
+    .stop-btn:hover {
+      background: rgba(196, 91, 23, 0.18);
+    }
+
+    .english {
+      margin: 0 0 14px;
+      font-size: clamp(22px, 2.1vw, 30px);
+      line-height: 1.6;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .vocab-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .vocab-chip {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(10, 118, 104, 0.08);
+      border: 1px solid rgba(10, 118, 104, 0.16);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .vocab-chip strong {
+      color: var(--accent);
+    }
+
+    .note {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.72);
+      min-width: 0;
+    }
+
+    .note h3 {
+      margin: 0 0 8px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .note p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .key {
+      color: var(--active);
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 740px) {
+      .page {
+        padding: 16px 12px 28px;
+      }
+
+      .intro,
+      .side,
+      .card {
+        padding: 16px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="panel intro">
+        <div>
+          <div class="eyebrow">English Script Guide</div>
+          <h1>Memory Motor Poster Script Explained</h1>
+          <p class="subtitle">英文を見ながら、意味・言い回し・単語の意味を日本語で確認するためのページです。音声は各文ごとに英語だけ再生できます。</p>
+        </div>
+        <div class="pills">
+          <span class="pill">22 sentences</span>
+          <span class="pill">about 2 min 51 sec</span>
+          <span class="pill">English audio only</span>
+        </div>
+        <div class="summary">
+          流れは <span class="key">Background → Reference → Conventional → Magnetized / Demagnetized → Proposed Design → Results → Experiment → Conclusion</span> です。各カードでは、英文、単語の意味、日本語での説明、話し方のポイントをまとめています。
+        </div>
+      </div>
+
+      <aside class="panel side">
+        <div class="player-box">
+          <div class="eyebrow">Audio</div>
+          <p class="player-status" id="playerStatus">各文の Play English を押すと、その文だけ再生します。</p>
+        </div>
+        <div>
+          <div class="eyebrow">Flow</div>
+          <div class="section-list">
+            <div class="section-chip">1. Opening</div>
+            <div class="section-chip">2. Background</div>
+            <div class="section-chip">3. Reference / Conventional</div>
+            <div class="section-chip">4. Magnetized / Demagnetized</div>
+            <div class="section-chip">5. Proposed Design</div>
+            <div class="section-chip">6. Results</div>
+            <div class="section-chip">7. Experiment</div>
+            <div class="section-chip">8. Conclusion</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="cards" id="cards"></section>
+  </div>
+
+  <audio id="player" preload="none"></audio>
+
+  <script>
+    const items = [
+      { section: "Opening", en: "Hello, thank you for coming.", meaning: "立ち止まってくれた相手に、まずやわらかく声をかける文です。短く、はっきり言えば十分です。", phrase: "\"thank you for coming\" は『来てくれてありがとうございます』で、ポスター発表の導入で自然な表現です。", tip: "\"Hello\" と \"thank you\" を少し区切ると聞き取りやすいです。" },
+      { section: "Opening", en: "I'm Ryonosuke Otsuka from Nagaoka University of Technology, and this work is joint research with Professor Hidaka at Ritsumeikan University.", meaning: "自分の所属と共同研究であることを1文でまとめています。最初に研究体制を明確にする役割です。", phrase: "\"this work is joint research with ...\" は『この研究は...との共同研究です』という丁寧でまっすぐな言い方です。", tip: "名前、大学名、Professor Hidaka を特にはっきり発音します。" },
+      { section: "Opening", en: "The title of this poster is \"Efficiency Improvement of Memory Motor with Spoke-based Inverted Triangle Magnet.\"", meaning: "タイトルを読み上げる文です。研究の主題をそのまま相手に渡す部分です。", phrase: "\"The title of this poster is ...\" はポスター発表らしい定番表現です。\"spoke-based\" と \"inverted triangle\" が核心です。", tip: "長いタイトルなので、\"Memory Motor\" と \"Spoke-based Inverted Triangle Magnet\" を区切って読みます。" },
+      { section: "Background", en: "IPM motors have high torque density, but they have large losses at high speed.", meaning: "研究の出発点です。利点と問題を1文で並べています。", phrase: "\"have high torque density\" は『高いトルク密度を持つ』、\"large losses at high speed\" は『高速で損失が大きい』です。", tip: "\"high torque density\" と \"high speed\" を対比で見せると流れが出ます。" },
+      { section: "Background", en: "Memory motors reduce back EMF by partial demagnetization of a variable magnet.", meaning: "メモリモータが何をするモータなのかを短く定義する文です。", phrase: "\"reduce back EMF by ...\" は『...によって逆起電力を下げる』です。\"partial demagnetization\" は『部分減磁』です。", tip: "\"back EMF\" は略語なので、口を急がずはっきり言います。" },
+      { section: "Background", en: "However, in the conventional structure, the q-axis flux becomes uneven after demagnetization, and iron loss increases.", meaning: "従来法の問題点をそのまま言っています。この後の提案の必要性につながる重要文です。", phrase: "\"becomes uneven\" は『不均一になる』、\"iron loss increases\" は『鉄損が増える』です。", tip: "\"q-axis flux\" と \"iron loss\" を強調して、問題点をはっきり出します。" },
+      { section: "Reference / Conventional", en: "The Reference model is the base structure with a V-shaped magnet arrangement.", meaning: "ここで基準モデルが何かを定義しています。比較の出発点です。", phrase: "\"base structure\" は『基準構造』、\"V-shaped magnet arrangement\" は『V字型磁石配置』です。", tip: "図を指しながら、Reference が比較の起点であることを落ち着いて示します。" },
+      { section: "Reference / Conventional", en: "The Conventional model is made by adding an AlNiCo magnet to this Reference structure.", meaning: "Reference と Conventional の関係を明確にする文です。ここを曖昧にしないのが大事です。", phrase: "\"is made by adding ...\" は『...を加えて作られる』です。\"AlNiCo magnet\" は可変磁石を指しています。", tip: "\"Reference structure\" と \"adding an AlNiCo magnet\" を切って話すと理解されやすいです。" },
+      { section: "Magnetized / Demagnetized", en: "In the magnetized state, the AlNiCo magnet works as a source of magnetomotive force.", meaning: "着磁状態で AlNiCo がどういう役割を持つかを説明しています。", phrase: "\"works as a source of magnetomotive force\" は『起磁力源として働く』です。技術的には重要ですが、文自体は素直です。", tip: "\"magnetized state\" と \"AlNiCo magnet\" をしっかり言うと通ります。" },
+      { section: "Magnetized / Demagnetized", en: "In the demagnetized state, the conventional structure causes magnetic saturation, and the flux lines become uneven.", meaning: "従来構造の悪化がどこで起きるかを示しています。図を見せながら言う文です。", phrase: "\"causes magnetic saturation\" は『磁気飽和を引き起こす』、\"flux lines become uneven\" は『磁束線が乱れる』です。", tip: "前文の magnetized state との対比を意識して、In the ... state を少し強めに出します。" },
+      { section: "Magnetized / Demagnetized", en: "As a result, harmonic flux increases around the q-axis.", meaning: "磁気飽和と磁束線の乱れが、最終的に何を増やすのかをまとめる文です。", phrase: "\"As a result\" は『その結果』、\"around the q-axis\" は『q軸周辺で』です。", tip: "短い文なので、一息で言い切ると締まります。" },
+      { section: "Proposed Design", en: "To reduce this problem, we changed the structure step by step.", meaning: "ここで問題提起から提案へ切り替えています。話の転換点です。", phrase: "\"To reduce this problem\" は『この問題を減らすために』、\"step by step\" は『段階的に』です。", tip: "ここで少し間を取ると、提案パートへの切り替えが伝わります。" },
+      { section: "Proposed Design", en: "We removed the narrow core area, and then we removed the q-axis core.", meaning: "提案モータの設計変更点を順番に述べています。図の流れと対応する文です。", phrase: "\"removed\" を繰り返すことで、変更点をわかりやすくしています。", tip: "\"narrow core area\" と \"q-axis core\" はそれぞれ図の場所を指して見せるとよいです。" },
+      { section: "Proposed Design", en: "This leads from the Reference model to the Proposed model and then to the salient type.", meaning: "設計の発展の流れを1文でまとめています。", phrase: "\"leads from A to B and then to C\" は『AからBへ、さらにCへつながる』という説明パターンです。", tip: "Reference, Proposed, salient type を図の順に指しながら読むのが自然です。" },
+      { section: "Proposed Design", en: "If we compare the flux-density distribution, the conventional model is disturbed around the q-axis, while the proposed model is smoother.", meaning: "Conventional と Proposed の差を最も直接的に言う文です。結果への橋渡しにもなります。", phrase: "\"while\" は『一方で』の比較、\"is smoother\" は『より滑らかである』です。", tip: "比較文なので、\"conventional model\" と \"proposed model\" を対比で強調します。" },
+      { section: "Proposed Design", en: "So, the proposed structure reduces harmonic q-axis flux.", meaning: "設計変更の効果を一言でまとめた文です。", phrase: "\"reduces harmonic q-axis flux\" がこの研究の中心メッセージの1つです。", tip: "短い結論文なので、落ち着いて言い切ります。" },
+      { section: "Results", en: "In the demagnetized state, the THD of the air-gap flux decreases from 23.5 percent to 18.3 percent.", meaning: "最初の定量結果です。磁束の乱れが本当に減ったことを数字で示しています。", phrase: "\"decreases from A to B\" は発表で非常によく使う数値表現です。", tip: "23.5 と 18.3 は少し間を置いて読むと伝わりやすいです。" },
+      { section: "Results", en: "Iron loss also decreases from 222 watts to 77 watts at 15000 rpm and 0.25 newton-meters.", meaning: "THD低減が鉄損低減につながったことを示す文です。見せ場の数値です。", phrase: "\"also decreases\" によって、前のTHD結果から自然に続けています。", tip: "\"222 watts to 77 watts\" を特にはっきり言います。" },
+      { section: "Results", en: "Efficiency improves from 80.1 to 83.4 percent at 1000 rpm and 2.0 newton-meters, and from 63.1 to 80.6 percent at 15000 rpm and 0.25 newton-meters.", meaning: "低速点と高速点の両方を比較していますが、特に高速域での改善が大きいことを伝える文です。", phrase: "\"Efficiency improves from A to B\" は、効率改善の結果をまっすぐ伝える定番です。", tip: "後半の 63.1 to 80.6 percent をやや強めに読むと、高速域の改善が伝わります。" },
+      { section: "Experiment", en: "We confirmed successful demagnetization, and the interim result improved efficiency from 74.9 percent to 78.4 percent at 15000 rpm and 0.25 newton-meters.", meaning: "解析だけでなく、実験でも良い傾向が出ていることを示しています。", phrase: "\"confirmed successful demagnetization\" は『減磁成功を確認した』、\"interim result\" は『中間結果』です。", tip: "数値の前に \"We confirmed successful demagnetization\" をしっかり言って、実験の信頼性を出します。" },
+      { section: "Conclusion", en: "In conclusion, the proposed motor reduces uneven q-axis flux, reduces iron loss, and improves high-speed efficiency.", meaning: "研究成果を3点でまとめた結論文です。最後の要約として十分に強い文です。", phrase: "\"In conclusion\" は発表の締め、\"reduces ... , reduces ... , and improves ...\" は並列で要点を並べています。", tip: "3つの効果を一つずつ区切って読むと結論がきれいに聞こえます。" },
+      { section: "Conclusion", en: "Thank you for your attention.", meaning: "発表の締めです。短く丁寧に終える文です。", phrase: "\"Thank you for your attention\" は学会発表の定番の締めです。", tip: "最後は少し視線を戻して、短く落ち着いて終えます。" }
+    ];
+
+    const vocabByIndex = {
+      0: [ { word: "coming", meaning: "来ること、来てくれること" }, { word: "thank you", meaning: "ありがとうございます" } ],
+      1: [ { word: "joint research", meaning: "共同研究" }, { word: "Professor", meaning: "教授" }, { word: "work", meaning: "この研究、この仕事" } ],
+      2: [ { word: "title", meaning: "題名、タイトル" }, { word: "poster", meaning: "ポスター" }, { word: "Efficiency Improvement", meaning: "効率改善" } ],
+      3: [ { word: "torque density", meaning: "トルク密度" }, { word: "losses", meaning: "損失" }, { word: "high speed", meaning: "高速" } ],
+      4: [ { word: "reduce", meaning: "下げる、減らす" }, { word: "back EMF", meaning: "逆起電力" }, { word: "partial demagnetization", meaning: "部分減磁" }, { word: "variable magnet", meaning: "可変磁石" } ],
+      5: [ { word: "conventional", meaning: "従来の" }, { word: "q-axis flux", meaning: "q軸磁束" }, { word: "uneven", meaning: "不均一な" }, { word: "iron loss", meaning: "鉄損" } ],
+      6: [ { word: "Reference model", meaning: "基準モデル" }, { word: "base structure", meaning: "基準構造" }, { word: "V-shaped", meaning: "V字型の" } ],
+      7: [ { word: "Conventional model", meaning: "従来モデル" }, { word: "adding", meaning: "追加すること" }, { word: "AlNiCo magnet", meaning: "アルニコ磁石" } ],
+      8: [ { word: "magnetized state", meaning: "着磁状態" }, { word: "source", meaning: "源" }, { word: "magnetomotive force", meaning: "起磁力" } ],
+      9: [ { word: "demagnetized state", meaning: "脱磁状態" }, { word: "magnetic saturation", meaning: "磁気飽和" }, { word: "flux lines", meaning: "磁束線" } ],
+      10: [ { word: "As a result", meaning: "その結果" }, { word: "harmonic flux", meaning: "高調波磁束" }, { word: "around", meaning: "周りで、付近で" } ],
+      11: [ { word: "reduce", meaning: "減らす" }, { word: "step by step", meaning: "段階的に" }, { word: "changed", meaning: "変更した" } ],
+      12: [ { word: "removed", meaning: "取り除いた" }, { word: "narrow core area", meaning: "狭いコア部分" }, { word: "q-axis core", meaning: "q軸コア" } ],
+      13: [ { word: "leads from A to B", meaning: "AからBへつながる" }, { word: "Proposed model", meaning: "提案モデル" }, { word: "salient type", meaning: "突極型" } ],
+      14: [ { word: "compare", meaning: "比較する" }, { word: "flux-density distribution", meaning: "磁束密度分布" }, { word: "disturbed", meaning: "乱れた" }, { word: "smoother", meaning: "より滑らかな" } ],
+      15: [ { word: "proposed structure", meaning: "提案構造" }, { word: "harmonic", meaning: "高調波の" }, { word: "reduces", meaning: "低減する" } ],
+      16: [ { word: "THD", meaning: "全高調波歪率" }, { word: "air-gap flux", meaning: "エアギャップ磁束" }, { word: "decreases from A to B", meaning: "AからBへ低下する" } ],
+      17: [ { word: "Iron loss", meaning: "鉄損" }, { word: "watts", meaning: "ワット" }, { word: "newton-meters", meaning: "ニュートンメートル" } ],
+      18: [ { word: "Efficiency improves", meaning: "効率が向上する" }, { word: "percent", meaning: "パーセント" }, { word: "rpm", meaning: "毎分回転数" } ],
+      19: [ { word: "confirmed", meaning: "確認した" }, { word: "successful demagnetization", meaning: "減磁成功" }, { word: "interim result", meaning: "中間結果" } ],
+      20: [ { word: "In conclusion", meaning: "結論として" }, { word: "uneven q-axis flux", meaning: "不均一なq軸磁束" }, { word: "high-speed efficiency", meaning: "高速効率" } ],
+      21: [ { word: "attention", meaning: "ご清聴、注意を向けること" }, { word: "Thank you for your attention", meaning: "ご清聴ありがとうございました" } ]
+    };
+
+    const cards = document.getElementById("cards");
+    const player = document.getElementById("player");
+    const playerStatus = document.getElementById("playerStatus");
+    let activeIndex = null;
+
+    function renderVocab(index) {
+      const vocab = vocabByIndex[index] || [];
+      if (vocab.length === 0) {
+        return "<p>重要語を追加していません。</p>";
+      }
+      return `<div class="vocab-grid">${vocab.map(item => `<span class="vocab-chip"><strong>${item.word}</strong><span>${item.meaning}</span></span>`).join("")}</div>`;
+    }
+
+    function englishPath(index) {
+      return `assets/en/sentence_${String(index + 1).padStart(3, "0")}.wav`;
+    }
+
+    function setActiveCard(index) {
+      activeIndex = index;
+      document.querySelectorAll(".card").forEach((node, cardIndex) => {
+        node.classList.toggle("playing", cardIndex === index);
+      });
+    }
+
+    function clearActiveCard() {
+      activeIndex = null;
+      document.querySelectorAll(".card").forEach(node => node.classList.remove("playing"));
+    }
+
+    function playEnglish(index) {
+      player.pause();
+      player.src = englishPath(index);
+      setActiveCard(index);
+      playerStatus.textContent = `Sentence ${index + 1} の英語音声を再生中です。`;
+      player.play().catch(error => {
+        playerStatus.textContent = `再生できませんでした: ${error.message}`;
+        clearActiveCard();
+      });
+    }
+
+    function stopPlayback() {
+      player.pause();
+      player.removeAttribute("src");
+      player.load();
+      playerStatus.textContent = "再生を停止しました。";
+      clearActiveCard();
+    }
+
+    player.addEventListener("ended", () => {
+      if (activeIndex !== null) {
+        playerStatus.textContent = `Sentence ${activeIndex + 1} の再生が終わりました。`;
+      }
+      clearActiveCard();
+    });
+
+    items.forEach((item, index) => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="card-head">
+          <div class="card-title">${item.section}</div>
+          <div class="card-index">Sentence ${index + 1}</div>
+        </div>
+        <div class="audio-row">
+          <button type="button" class="audio-btn" data-action="play">Play English</button>
+          <button type="button" class="stop-btn" data-action="stop">Stop</button>
+        </div>
+        <p class="english">${item.en}</p>
+        <div class="grid">
+          <section class="note">
+            <h3>Word Meanings</h3>
+            ${renderVocab(index)}
+          </section>
+          <section class="note">
+            <h3>Meaning</h3>
+            <p>${item.meaning}</p>
+          </section>
+          <section class="note">
+            <h3>Key Phrase</h3>
+            <p>${item.phrase}</p>
+          </section>
+          <section class="note">
+            <h3>Speaking Tip</h3>
+            <p>${item.tip}</p>
+          </section>
+        </div>
+      `;
+
+      card.addEventListener("click", event => {
+        const button = event.target.closest("button");
+        if (!button) {
+          return;
+        }
+        if (button.dataset.action === "play") {
+          playEnglish(index);
+        } else {
+          stopPlayback();
+        }
+      });
+
+      cards.appendChild(card);
+    });
+  </script>
+</body>
+</html>
